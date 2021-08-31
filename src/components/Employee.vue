@@ -37,7 +37,7 @@ export default {
     toggleModal() {
       this.isOpenModal = !this.isOpenModal;
     },
-    handleUpdate() {
+    handleUpdate(employee) {
       this.$emit("handleUpdate", employee);
       this.isOpenModal = false;
     },
