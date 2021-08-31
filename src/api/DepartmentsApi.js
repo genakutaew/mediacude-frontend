@@ -1,21 +1,21 @@
 import Api from "./Api"
 
 class DepartmentsApi extends Api {
-    index(data) {
-        return this.axios.get("/departments", data)
-    }
+  index(data) {
+    return this.axios.get("/departments", data)
+  }
 
-    store(data) {
-        return this.axios.post("/departments", data)
-    }
+  store(data) {
+    return this.axios.post("/departments", data)
+  }
 
-    update() {
-        return this.axios.put("/departments")
-    }
+  update(id, data) {
+    return this.axios.put("/departments/" + id, data)
+  }
 
-    destroy(data) {
-        return this.axios.delete("/departments", data)
-    }
+  destroy(id) {
+    return this.axios.delete("/departments/" + id)
+  }
 }
 
 export default new DepartmentsApi()

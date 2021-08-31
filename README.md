@@ -1,4 +1,4 @@
-# sdf
+# MediaCube
 
 ## Project setup
 ```

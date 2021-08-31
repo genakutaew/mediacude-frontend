@@ -1,21 +1,21 @@
 import Api from "./Api"
 
 class EmployeesApi extends Api {
-    index(data) {
-        return this.axios.get("/employees", data)
-    }
+  index(data) {
+    return this.axios.get("/employees", data)
+  }
 
-    store(data) {
-        return this.axios.post("/employees", data)
-    }
+  store(data) {
+    return this.axios.post("/employees", data)
+  }
 
-    update() {
-        return this.axios.put("/employees")
-    }
+  update(id, data) {
+    return this.axios.put("/employees/" + id, data)
+  }
 
-    destroy() {
-        return this.axios.delete("/employees")
-    }
+  destroy(id) {
+    return this.axios.delete("/employees/" + id)
+  }
 }
 
 export default new EmployeesApi()
