@@ -81,6 +81,10 @@ export default {
         });
     },
     handleSubmit() {
+      if (!this.departmentsOptions.length){
+         this.$toasted.error('Для начала создайте отдел');
+         return
+      }
       this.formData.gender = this.formData.gender.type;
       this.formData.departments_ids = this.formData.departments.map(
         (department) => department.id
