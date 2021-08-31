@@ -2,7 +2,9 @@
 
 ## Разворачивание проекта
 docker-compose up -d
+
 docker exec -it mediacube-ui-node npm i
+
 docker exec -it mediacube-ui-node npm run serve
 
 ## Что сделано
