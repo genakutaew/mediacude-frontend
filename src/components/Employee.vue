@@ -3,9 +3,9 @@
   .title
     .title Имя: {{ employee.first_name }}
     .title Фамилия: {{ employee.middle_name }}
-    .title Отчество: {{ employee.last_name }}
-    .title Пол: {{ employee.gender | genderToText }}
-    .title Зп: {{ employee.salary }}
+    .title(v-if="employee.last_name") Отчество: {{ employee.last_name }}
+    .title(v-if="employee.gender") Пол: {{ employee.gender | genderToText }}
+    .title(v-if="employee.salary") Зп: {{ employee.salary }}
     .title Отделы:&nbsp
       span(v-for="(department, index) in employee.departments") {{ department.name + (index === employee.departments.length - 1 ? '.' : ', ') }}
   button(@click="toggleModal") Редактировать

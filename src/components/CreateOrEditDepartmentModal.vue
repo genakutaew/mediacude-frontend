@@ -2,11 +2,13 @@
 <template lang="pug">
 .container
   input(type="text", v-model="formData.name", placeholder="Название отдела")
+  br
   button(@click="handleSubmit") Сохранить
 </template>
 
 <script>
 import DepartmentApi from "@/api/DepartmentsApi";
+import {cloneDeep} from 'lodash'
 
 export default {
   props: {
@@ -27,7 +29,7 @@ export default {
   mounted() {
     if (this.department?.id) {
       this.isEditing = true;
-      this.formData = this.department;
+      this.formData = cloneDeep(this.department);
     } else {
       this.isEditing = false;
     }
@@ -55,3 +57,16 @@ export default {
   },
 };
 </script>
+<style scoped lang="sass">
+.container
+  max-width: 200px
+  & input
+    margin: 5px 0
+    outline: none
+    min-height: 30px
+    border-radius: 5px
+    border: 1px solid lightgray
+    width: 190px
+  & .multiselect
+    margin: 5px 0
+</style>
