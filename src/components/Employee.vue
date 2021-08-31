@@ -6,8 +6,8 @@
     .title Отчество: {{ employee.last_name }}
     .title Пол: {{ employee.gender | genderToText }}
     .title Зп: {{ employee.salary }}
-    .title Отделы:
-      span(v-for="department in employee.departments") {{ department.name }} &nbsp
+    .title Отделы:&nbsp
+      span(v-for="(department, index) in employee.departments") {{ department.name + (index === employee.departments.length - 1 ? '.' : ', ') }}
   button(@click="toggleModal") Редактировать
   button(@click="handleRemove") Удалить
   create-or-edit-employee-modal(
