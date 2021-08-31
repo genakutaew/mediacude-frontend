@@ -1,19 +1,13 @@
 # MediaCube
 
-## Project setup
-```
-npm install
-```
+## Разворачивание проекта
+docker-compose up -d
+docker exec -it mediacube-ui-node npm i
+docker exec -it mediacube-ui-node npm run serve
 
-### Compiles and hot-reloads for development
-```
-npm run serve
-```
+## Что сделано
+все что указано в тз
 
-### Compiles and minifies for production
-```
-npm run build
-```
-
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+## Что можно улучшить
+добавить валидацию на фронте
+верстку)
