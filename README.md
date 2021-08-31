@@ -12,4 +12,5 @@ docker exec -it mediacube-ui-node npm run serve
 
 ## Что можно улучшить
 добавить валидацию на фронте
+
 верстку)
