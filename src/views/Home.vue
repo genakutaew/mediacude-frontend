@@ -2,9 +2,9 @@
 .container
   .title Сетка
   .body
-    .table
-      .row(v-for="employee in employees")
-        .col {{ employee.first_name + ' ' + employee.middle_name }}
+    table
+      tr(v-for="row in intersectionDepartmentsAndEmployees")
+        td(v-for="col in row") {{ col }}
 </template>
 
 <script>
@@ -16,30 +16,49 @@ export default {
     return {
       employees: [],
       departments: [],
+      intersectionDepartmentsAndEmployees: [],
     };
   },
   mounted() {
-    this.getEmployees();
-    this.getDepartments();
+    this.loadData();
   },
   methods: {
-    getDepartments() {
-      DepartmentApi.index()
+    loadData() {
+      Promise.all([DepartmentApi.index(), EmployeesApi.index()])
         .then((response) => {
-          this.departments = response.data.departments;
+          this.departments = response[0].data.departments;
+          this.employees = response[1].data.employees;
+          this.getIntersectionDepartmentsAndEmployees();
         })
         .catch((error) => {
-          this.$toasted.error("Ошибка загрузки отделов");
+          this.$toasted.error("Ошибка загрузки");
         });
     },
-    getEmployees() {
-      EmployeesApi.index()
-        .then((response) => {
-          this.employees = response.data.employees;
-        })
-        .catch((error) => {
-          this.$toasted.error("Ошибка загрузки сотрудников");
-        });
+    getIntersectionDepartmentsAndEmployees() {
+      for (let i = 0; i < this.employees.length; i++) {
+        this.intersectionDepartmentsAndEmployees[i] = [];
+        for (let j = 0; j < this.departments.length; j++) {
+          if (
+            this.employees[i].departments.some(
+              (department) => department.id === this.departments[j].id
+            ) &&
+            this.departments[j].employees.some(
+              (employee) => employee.id === this.employees[i].id
+            )
+          ) {
+            this.intersectionDepartmentsAndEmployees[i][j] = "х";
+          } else {
+            this.intersectionDepartmentsAndEmployees[i][j] = "";
+          }
+        }
+        this.intersectionDepartmentsAndEmployees[i].unshift(
+          this.employees[i].first_name + " " + this.employees[i].middle_name
+        );
+      }
+      this.intersectionDepartmentsAndEmployees.unshift([
+        "",
+        ...this.departments.map((department) => department.name),
+      ]);
     },
   },
 };
@@ -47,4 +66,14 @@ export default {
 
 
 <style scoped lang="sass">
+table
+  border: 1px solid black
+  border-collapse: collapse
+
+td
+  text-align: center
+  border: 1px solid black
+
+td:first-child
+  text-align: left
 </style>
