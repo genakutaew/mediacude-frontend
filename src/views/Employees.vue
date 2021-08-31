@@ -1,17 +1,19 @@
 <template lang="pug">
 .container
   .title Сотрудники
+  hr
   .body
     button(@click="toggleModal") Создать нового сотрудника
     create-or-edit-employee-modal(v-if="isOpenModal", @handleSave="handleSave")
     hr
-    employee(
-      v-for="(employee, index) in employees",
-      :employee="employee",
-      :key="index",
-      @handleUpdate="handleUpdate",
-      @handleRemove="handleRemove"
-    )
+    template(v-for="(employee, index) in employees")
+      employee(
+        :employee="employee",
+        :key="index",
+        @handleUpdate="handleUpdate",
+        @handleRemove="handleRemove"
+      )
+      hr(v-if="index !== employees.length - 1")
 </template>
 
 <script>
@@ -37,13 +39,13 @@ export default {
       this.isOpenModal = false;
       this.employees.push(employee);
     },
-    handleUpdate(employee){
+    handleUpdate(employee) {
       let employeeIndex = this.employees.findIndex(
         (emp) => emp.id == employee.id
       );
       this.employeess[employeeIndex] = employee;
     },
-    handleRemove(id){
+    handleRemove(id) {
       this.employees.splice(
         this.employees.findIndex((employee) => employee.id === id),
         1

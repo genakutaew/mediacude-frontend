@@ -1,6 +1,7 @@
 <template lang="pug">
 .container
   .title Отделы
+  hr
   .body
     button(@click="toggleModal") Создать новый отдел
     create-or-edit-department-modal(
@@ -8,13 +9,14 @@
       @handleSave="handleSave"
     )
     hr
-    department(
-      v-for="(department, index) in departments",
-      :department="department",
-      :key="index",
-      @handleUpdate="handleUpdate",
-      @handleRemove="handleRemove"
-    )
+    template(v-for="(department, index) in departments")
+      department(
+        :department="department",
+        :key="index",
+        @handleUpdate="handleUpdate",
+        @handleRemove="handleRemove"
+      )
+      hr(v-if="index !== departments.length - 1")
 </template>
 
 <script>

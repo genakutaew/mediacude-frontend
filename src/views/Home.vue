@@ -1,6 +1,7 @@
 <template lang="pug">
 .container
   .title Сетка
+  hr
   .body
     table
       tr(v-for="row in intersectionDepartmentsAndEmployees")
